@@ -134,22 +134,22 @@ const BookReviews = () => {
 				</div>
 				<div className="book-info">
 					<p>
-						<strong>Author(s):</strong>
+						<strong>Author(s): </strong>
 						{
 							authors?.join(", ") || "Unknown"
 						}</p>
 					<p>
-						<strong>Published Date:</strong>
+						<strong>Published Date: </strong>
 						{
 							publishedDate || "N/A"
 						}</p>
 					<p>
-						<strong>Genres:</strong>
+						<strong>Genres: </strong>
 						{
 							categories?.join(", ") || "Uncategorized"
 						}</p>
 					<p>
-						<strong>Description:</strong>
+						<strong>Description: </strong>
 						{
 							stripHtml(description) || "No description available."
 						}</p>
@@ -162,11 +162,9 @@ const BookReviews = () => {
 						value={newReview}
 						onChange={handleReviewChange}
 						placeholder="Write your review here..."
-						rows="4"
-						cols="50"
 					/>
-					<button type="submit">Submit Review</button>
 				</form>
+				<button type="submit">Submit Review</button>
 
 				<div className="reviews-list">
 					{reviews.length > 0 ? (
@@ -196,11 +194,11 @@ const BookReviews = () => {
 						<p>No reviews yet.</p>
 					)}
 				</div>
-			</div>
-			<div>
+				<div>
 				<Link to="/books" className="back-to-list">
-					🔙 Back to Book List
+					Back to List
 				</Link>
+			</div>
 			</div>
 		</div>
 	);

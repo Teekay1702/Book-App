@@ -1,5 +1,9 @@
 .book-details-container {
   text-align: center;
+  padding: 20px;
+  border: #000 solid 1px;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
 .book-cover img {
@@ -12,9 +16,20 @@
   text-align: left;
 }
 
+.book-info p {
+  font-size: 16px;
+}
+
 .book-reviews {
   margin-top: 40px;
   text-align: left;
+}
+
+textarea{
+  border: solid 2px black;
+  border-radius: 10px;
+  padding: 20px;
+  width: 500px;
 }
 
 .review {
@@ -32,6 +47,15 @@
 
 .review p strong {
   font-weight: bold;
+}
+
+.back-to-list {
+  border: solid 2px black;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  background-color: rgb(62, 162, 228);
+  margin-left: 10px;
 }
 
 .spinner {
