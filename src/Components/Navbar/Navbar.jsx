@@ -18,7 +18,7 @@ const Navbar = ({ onSearch }) => {
 	return (
 		<nav className="navbar">
 			<div className="logo">
-				<Link to="/">📚 Book Finder</Link>
+			📚 Book Finder
 			</div>
 
 			<form className="search-form"
