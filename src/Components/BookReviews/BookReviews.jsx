@@ -7,6 +7,10 @@ const BookReviews = () => {
 	const {id} = useParams();
 	const [book, setBook] = useState(null);
 	const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState([]);
+  const [newReview, setNewReview] = useState("");
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editedReview, setEditedReview] = useState('');
 	const [error, setError] = useState(null);
 	const API_KEY = "AIzaSyDzadnnEFZqe7mdLZ0rPAUOI9wunqhTLtQ";
 
@@ -51,7 +55,43 @@ const BookReviews = () => {
 		
 
 	}, [id]);
+  
+  const handleReviewChange = (e) => {
+    setNewReview(e.target.value);
+  };
 
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    if (newReview.trim()) {
+      setReviews([...reviews, newReview]);
+      setNewReview('');
+    }
+  };
+
+  const handleEditChange = (e) => {
+    setEditedReview(e.target.value);
+  };
+
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    if (editedReview.trim()) {
+      const updatedReviews = [...reviews];
+      updatedReviews[editingIndex] = editedReview;
+      setReviews(updatedReviews);
+      setEditingIndex(null);
+      setEditedReview('');
+    }
+  };
+
+  const handleEditClick = (index) => {
+    setEditingIndex(index);
+    setEditedReview(reviews[index]);
+  };
+
+  const handleDeleteClick = (index) => {
+    const updatedReviews = reviews.filter((_, i) => i !== index);
+    setReviews(updatedReviews);
+  };
 
 	if (loading) {
 		return <div>Loading Book Details...</div>;
@@ -108,9 +148,50 @@ const BookReviews = () => {
 						{
 						stripHtml(description) || "No description available."
 					}</p>
-
 				</div>
 			</div>
+      <div className="book-review-section">
+        <h2>User Reviews</h2>
+        <form onSubmit={handleReviewSubmit}>
+          <textarea
+            value={newReview}
+            onChange={handleReviewChange}
+            placeholder="Write your review here..."
+            rows="4"
+            cols="50"
+          />
+          <button type="submit">Submit Review</button>
+        </form>
+
+        <div className="reviews-list">
+          {reviews.length > 0 ? (
+            reviews.map((review, index) => (
+              <div key={index} className="review">
+                {editingIndex === index ? (
+                  <form onSubmit={handleEditSubmit}>
+                    <textarea
+                      value={editedReview}
+                      onChange={handleEditChange}
+                      rows="4"
+                      cols="50"
+                    />
+                    <button type="submit">Save</button>
+                    <button type="button" onClick={() => setEditingIndex(null)}>Cancel</button>
+                  </form>
+                ) : (
+                  <>
+                    <p>{review}</p>
+                    <button onClick={() => handleEditClick(index)}>Edit</button>
+                    <button onClick={() => handleDeleteClick(index)}>Delete</button>
+                  </>
+                )}
+              </div>
+            ))
+          ) : (
+            <p>No reviews yet.</p>
+          )}
+        </div>
+      </div>
 			<div>
 				<Link to="/books" className="back-to-list">
 					🔙 Back to Book List
