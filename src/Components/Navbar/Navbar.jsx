@@ -1,14 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Navbar.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Navbar.css";
 
 const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="logo">
-        <Link to="/">BookList</Link>
+        <Link to="/">📚 Book Finder</Link>
       </div>
-      <input type="text" className="searchbar" placeholder="Search books..." />
+      <ul>
+        <li><Link to="/">Search</Link></li>
+        <li><Link to="/bestsellers">Bestsellers</Link></li>
+        <li><Link to="/reviews">Reviews</Link></li>
+      </ul>
     </nav>
   );
 };
