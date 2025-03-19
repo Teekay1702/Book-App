@@ -16,18 +16,19 @@ const BookList = ({ searchQuery}) => {
 			try {
 				const response = await fetch(
                     `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=10&key=${API_KEY}`
-                  );         
+                  );                 
 				const data = await response.json();
 				if (data.items) {
 					setBooks(data.items);
 				} else {
 					setError("No books found");
 				}
-				setLoading(false);
 			} catch (error) {
 				console.error("Error fetching data: ", + error.message);
-				setLoading(false);
-			}
+				setError("An error occurred while fetching data.");
+			} finally {
+                setLoading(false);
+            }
 		}
         
         fetchBooks();
