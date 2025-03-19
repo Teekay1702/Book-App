@@ -35,19 +35,3 @@ button {
 button:hover {
     background-color: #2980b9;
 }
-
-.back-to-list {
-    margin-left: 20px;
-}
-
-.back-button {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 12px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.back-button:hover {
-    background-color: #0056b3;
-}
