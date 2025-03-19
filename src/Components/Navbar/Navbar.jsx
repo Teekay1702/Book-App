@@ -1,8 +1,8 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = ({onSearch}) => {
+const Navbar = ({ onSearch }) => {
 
 	const [searchTerm, setSearchTerm] = useState("");
 
@@ -25,7 +25,7 @@ const Navbar = ({onSearch}) => {
 				onSubmit={handleSearchSubmit}>
 				<input type="text" className="searchbar" placeholder="Search books..."
 					value={searchTerm}
-					onChange={handleSearchChange}/>
+					onChange={handleSearchChange} />
 				<button type="submit">Search</button>
 			</form>
 			<div className="back-to-list">
