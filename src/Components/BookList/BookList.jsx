@@ -10,8 +10,8 @@ const BookList = () => {
 		const fetchBooks = async () => {
 			try {
 				const response = await fetch(
-                    `https://www.googleapis.com/books/v1/volumes?q=bestsellers&maxResults=10&key=${API_KEY}`
-                  );
+                    `https://www.googleapis.com/books/v1/volumes?q=subject:fiction&maxResults=8&key=${API_KEY}`
+                  );          
 				const data = await response.json();
 				setBooks(data.items || []);
 				setLoading(false);
