@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './BookList.css';
+import { Link } from 'react-router-dom';
 
 const BookList = ({ searchQuery}) => {
 	const [books, setBooks] = useState([]);
@@ -40,6 +41,7 @@ const BookList = ({ searchQuery}) => {
     return (
         <div className="book-list-container">
           <h1>📚 Book Collection</h1>
+          {error && <div className='error-message'>{error}</div>}
           <div className="book-list">
             {books.length === 0 ? (
               <p>No books found for "{searchQuery}"</p>
@@ -59,9 +61,7 @@ const BookList = ({ searchQuery}) => {
                       <p><strong>Author:</strong> {volumeInfo.authors?.join(", ") || "Unknown"}</p>
                       <p><strong>Published:</strong> {volumeInfo.publishedDate || "N/A"}</p>
                       <p><strong>Genre:</strong> {volumeInfo.categories?.join(", ") || "Uncategorized"}</p>
-                      <a href={volumeInfo.infoLink} target="_blank" rel="noopener noreferrer">
-                        📖 More Info
-                      </a>
+                      <Link to={`/books/${id}`} className="view-details-button">View Details</Link>
                     </div>
                   </div>
                 );

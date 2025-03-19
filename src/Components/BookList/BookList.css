@@ -1,5 +1,6 @@
 .book-list-container {
     text-align: center;
+    padding: 20px;
   }
   
   .book-list {
@@ -11,32 +12,75 @@
   
   .book-card {
     border: 1px solid #ddd;
-    padding: 10px;
-    width: 200px;
+    padding: 15px;
+    width: 220px;
     text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+  }
+  
+  .book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   }
   
   .book-cover img {
     width: 100%;
     height: auto;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+  
+  .book-details {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to the left */
+    padding: 10px;
   }
   
   .book-details h2 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .book-details p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
   }
   
   .book-details a {
     display: inline-block;
-    margin-top: 10px;
-    padding: 5px 10px;
+    margin-top: 15px;
+    padding: 8px 20px;
     background: #007bff;
     color: white;
     text-decoration: none;
     border-radius: 5px;
+    font-size: 1rem;
+    transition: background 0.3s ease;
   }
   
   .book-details a:hover {
     background: #0056b3;
+    text-decoration: underline;
+  }
+  
+  
+  .error-message {
+    color: red;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .book-list-container h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
   }
   
