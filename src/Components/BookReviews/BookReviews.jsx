@@ -94,8 +94,13 @@ const BookReviews = () => {
 	};
 
 	if (loading) {
-		return <div>Loading Book Details...</div>;
-	}
+		return (
+		  <div className="loading-container">
+			<div className="spinner"></div>
+			<p>Loading details...</p>
+		  </div>
+		);
+	  }
 
 	if (error) {
 		return <div>Error: {error}</div>;

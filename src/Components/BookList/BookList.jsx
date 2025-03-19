@@ -36,8 +36,14 @@ const BookList = ({ searchQuery }) => {
   }, [searchQuery]);
 
   if (loading) {
-    return <div id='loading'>Loading Books...</div>;
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Loading Books...</p>
+      </div>
+    );
   }
+  
 
   return (
     <div className="book-list-container">
