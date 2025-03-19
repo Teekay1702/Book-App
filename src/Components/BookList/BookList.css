@@ -36,9 +36,7 @@
 .book-details {
   display: flex;
   flex-direction: column;
-  /* Stack elements vertically */
   align-items: flex-start;
-  /* Align items to the left */
   padding: 10px;
 }
 
@@ -77,6 +75,14 @@
   color: red;
   font-size: 1.2rem;
   font-weight: bold;
+}
+
+#loading {
+  font-size: 56px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #333;
 }
 
 .book-list-container h1 {

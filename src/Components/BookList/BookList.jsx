@@ -36,7 +36,7 @@ const BookList = ({ searchQuery }) => {
   }, [searchQuery]);
 
   if (loading) {
-    return <div>Loading Books...</div>;
+    return <div id='loading'>Loading Books...</div>;
   }
 
   return (
