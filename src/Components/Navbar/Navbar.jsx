@@ -28,9 +28,7 @@ const Navbar = ({ onSearch }) => {
 					onChange={handleSearchChange} />
 				<button type="submit">Search</button>
 			</form>
-			<div className="back-to-list">
-				<Link to="/books" className="back-button">🔙 Back to Home</Link>
-			</div>
+			
 		</nav>
 	);
 };
