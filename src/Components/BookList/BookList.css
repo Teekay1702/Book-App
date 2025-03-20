@@ -3,6 +3,13 @@
   padding: 20px;
 }
 
+.book-list-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: white;
+  font-weight: bold;
+}
+
 .book-list {
   display: flex;
   flex-wrap: wrap;
@@ -42,14 +49,14 @@
 
 .book-details h2 {
   font-size: 1.2rem;
-  color: #333;
   font-weight: bold;
   margin-bottom: 15px;
+  color: whitesmoke;
 }
 
 .book-details p {
   font-size: 1rem;
-  color: #555;
+  color: white;
   margin: 5px 0;
 }
 
@@ -101,11 +108,5 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-}
-
-.book-list-container h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #333;
-  font-weight: bold;
+  color: whitesmoke;
 }
