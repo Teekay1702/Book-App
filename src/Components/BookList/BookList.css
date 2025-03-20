@@ -73,7 +73,10 @@
 
 .error-message {
   color: red;
-  font-size: 1.2rem;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: 32px;
   font-weight: bold;
 }
 

@@ -25,7 +25,7 @@ const BookList = ({ searchQuery }) => {
         }
       } catch (error) {
         console.error("Error fetching data: ", + error.message);
-        setError("An error occurred while fetching data.");
+        setError("An error occurred while fetching books.");
       } finally {
         setLoading(false);
       }
