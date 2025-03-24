@@ -26,7 +26,7 @@ const Home = () => {
             <h1>Welcome to the Book Collection!</h1>
             <p>Explore a wide range of books in various genres:</p>
             <div className="genre-list">
-                {genres.map((genre) => (
+                {genres.map((genre, index) => (
                     <button
                         key={index}
                         className="genre-button"

@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import './BookList.css';
-import { Link } from 'react-router-dom';
 
-const BookList = ({ searchQuery }) => {
+const BookList = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const searchQuery = searchParams.get("search") || "fiction";
   const API_KEY = "AIzaSyDzadnnEFZqe7mdLZ0rPAUOI9wunqhTLtQ";
 
   useEffect(() => {
-    const query = searchQuery || "fiction";
     const fetchBooks = async () => {
       setLoading(true);
       setError("");
       try {
         const response = await fetch(
-          `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=10&key=${API_KEY}`
+          `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&maxResults=10&key=${API_KEY}`
         );
         const data = await response.json();
+        console.log("API Response:", data);
         if (data.items) {
           setBooks(data.items);
         } else {
@@ -47,7 +50,7 @@ const BookList = ({ searchQuery }) => {
 
   return (
     <div className="book-list-container">
-      <h1>📚 Book Collection</h1>
+      <h1>📚 Books for "{searchQuery}"</h1>
       {error && <div className='error-message'>{error}</div>}
       <div className="book-list">
         {books.length === 0 ? (
