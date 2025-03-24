@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './BookReviews.css';
 
 const BookReviews = () => {
-	const { id } = useParams();
+	const {id} = useParams();
 	const [book, setBook] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [reviews, setReviews] = useState([]);
@@ -50,9 +50,13 @@ const BookReviews = () => {
 			}
 		};
 
-		if (id)
+		if (id) 
 			fetchBookDetails();
-
+		
+    const savedReviews = localStorage.getItem(`reviews_${id}`);
+    if (savedReviews) {
+      setReviews(JSON.parse(savedReviews));
+    }
 
 	}, [id]);
 
@@ -63,7 +67,11 @@ const BookReviews = () => {
 	const handleReviewSubmit = (e) => {
 		e.preventDefault();
 		if (newReview.trim()) {
-			setReviews([...reviews, newReview]);
+			const updatedReviews = [
+				...reviews,
+				newReview,
+			]; setReviews(updatedReviews);
+      localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
 			setNewReview('');
 		}
 	};
@@ -80,6 +88,7 @@ const BookReviews = () => {
 			setReviews(updatedReviews);
 			setEditingIndex(null);
 			setEditedReview('');
+      localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
 		}
 	};
 
@@ -91,16 +100,17 @@ const BookReviews = () => {
 	const handleDeleteClick = (index) => {
 		const updatedReviews = reviews.filter((_, i) => i !== index);
 		setReviews(updatedReviews);
+    localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
 	};
 
 	if (loading) {
 		return (
-		  <div className="loading-container">
-			<div className="spinner"></div>
-			<p>Loading details...</p>
-		  </div>
+			<div className="loading-container">
+				<div className="spinner"></div>
+				<p>Loading details...</p>
+			</div>
 		);
-	  }
+	}
 
 	if (error) {
 		return <div>Error: {error}</div>;
@@ -110,7 +120,7 @@ const BookReviews = () => {
 		return <div>Book not found</div>;
 	}
 
-	const { volumeInfo } = book;
+	const {volumeInfo} = book;
 	const {
 		title,
 		authors,
@@ -122,81 +132,91 @@ const BookReviews = () => {
 
 	return (
 		<div className="book-details-container">
-      <Link to="/books" className="back-to-list">
-					Back to List
-				</Link>
+			<Link to="/books" className="back-to-list">
+				Back to List
+			</Link>
 			<h1>{title}</h1>
 			<div className="book-details">
 				<div className="book-cover">
 					<img src={
-						imageLinks?.thumbnail || "https://via.placeholder.com/128x192"
-					}
+							imageLinks ?. thumbnail || "https://via.placeholder.com/128x192"
+						}
 						alt={
 							`${title} cover`
-						} />
+						}/>
 				</div>
 				<div className="book-info">
 					<p>
-						<strong>Author(s): </strong>
+						<strong>Author(s):
+						</strong>
 						{
-							authors?.join(", ") || "Unknown"
-						}</p>
+						authors ?. join(", ") || "Unknown"
+					}</p>
 					<p>
-						<strong>Published Date: </strong>
+						<strong>Published Date:
+						</strong>
 						{
-							publishedDate || "N/A"
-						}</p>
+						publishedDate || "N/A"
+					}</p>
 					<p>
-						<strong>Genres: </strong>
+						<strong>Genres:
+						</strong>
 						{
-							categories?.join(", ") || "Uncategorized"
-						}</p>
+						categories ?. join(", ") || "Uncategorized"
+					}</p>
 					<p>
-						<strong>Description: </strong>
+						<strong>Description:
+						</strong>
 						{
-							stripHtml(description) || "No description available."
-						}</p>
+						stripHtml(description) || "No description available."
+					}</p>
 				</div>
 			</div>
 			<div className="book-review-section">
 				<h2>User Reviews</h2>
 				<form onSubmit={handleReviewSubmit}>
-					<textarea
-						value={newReview}
+					<textarea value={newReview}
 						onChange={handleReviewChange}
-						placeholder="Write your review here..."
-					/>
+						placeholder="Write your review here..."/>
+            <button type="submit">Submit Review</button>
 				</form>
-				<button type="submit">Submit Review</button>
 
 				<div className="reviews-list">
-					{reviews.length > 0 ? (
-						reviews.map((review, index) => (
-							<div key={index} className="review">
-								{editingIndex === index ? (
-									<form onSubmit={handleEditSubmit}>
-										<textarea
-											value={editedReview}
-											onChange={handleEditChange}
-											rows="4"
-											cols="50"
-										/>
-										<button type="submit">Save</button>
-										<button type="button" onClick={() => setEditingIndex(null)}>Cancel</button>
-									</form>
-								) : (
-									<>
-										<p>{review}</p>
-										<button onClick={() => handleEditClick(index)}>Edit</button>
-										<button onClick={() => handleDeleteClick(index)}>Delete</button>
-									</>
-								)}
-							</div>
-						))
-					) : (
+					{
+					reviews.length > 0 ? (reviews.map((review, index) => (
+						<div key={index}
+							className="review">
+							{
+							editingIndex === index ? (
+								<form onSubmit={handleEditSubmit}>
+									<textarea value={editedReview}
+										onChange={handleEditChange}
+										rows="4"
+										cols="50"/>
+									<button type="submit">Save</button>
+									<button type="button"
+										onClick={
+											() => setEditingIndex(null)
+									}>Cancel</button>
+								</form>
+							) : (
+								<>
+									<p>{review}</p>
+                  <div className="review-actions">
+                  <button onClick={
+										() => handleEditClick(index)
+									}>Edit</button>
+									<button onClick={
+										() => handleDeleteClick(index)
+									}>Delete</button>
+                  </div>
+								</>
+							)
+						} </div>
+					))) : (
 						<p>No reviews yet.</p>
-					)}
-				</div>
+					)
+				} </div>
 			</div>
 		</div>
 	);
