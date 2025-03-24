@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = ({onSearch}) => {
+const Navbar = () => {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState("");
 

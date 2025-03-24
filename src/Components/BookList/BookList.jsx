@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import './BookList.css';
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalResults, setTotalResults] = useState(0);
+  const [booksPerPage] = useState(10);
   const location = useLocation();
+  const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get("search") || "fiction";
   const API_KEY = "AIzaSyDzadnnEFZqe7mdLZ0rPAUOI9wunqhTLtQ";
@@ -17,15 +21,16 @@ const BookList = () => {
       setError("");
       try {
         const response = await fetch(
-          `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&maxResults=10&key=${API_KEY}`
+           `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchQuery)}&startIndex=${(currentPage - 1) * booksPerPage}&maxResults=${booksPerPage}&key=${API_KEY}`
         );
         const data = await response.json();
         console.log("API Response:", data);
-        if (data.items) {
-          setBooks(data.items);
-        } else {
-          setError("No books found");
-        }
+        if (data.items && Array.isArray(data.items)) {
+            setBooks(data.items);
+            setTotalResults(data.totalItems || 0);
+          } else {
+            setError("No books found");
+          }
       } catch (error) {
         console.error("Error fetching data: ", + error.message);
         setError("An error occurred while fetching books.");
@@ -36,7 +41,9 @@ const BookList = () => {
 
     fetchBooks();
 
-  }, [searchQuery]);
+  }, [searchQuery, currentPage]);
+
+  const totalPages = totalResults ? Math.ceil(totalResults / booksPerPage) : 0;;
 
   if (loading) {
     return (
@@ -46,10 +53,22 @@ const BookList = () => {
       </div>
     );
   }
-  
 
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  
   return (
     <div className="book-list-container">
+        <button className="back-button" onClick={() => navigate("/")}>⬅ Back to Home</button>
       <h1>📚 Books for "{searchQuery}"</h1>
       {error && <div className='error-message'>{error}</div>}
       <div className="book-list">
@@ -77,6 +96,23 @@ const BookList = () => {
             );
           })
         )}
+      </div>
+      <div className="pagination">
+        <button 
+          className="pagination-button" 
+          onClick={goToPreviousPage} 
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span className="pagination-info">Page {currentPage}</span>
+        <button 
+          className="pagination-button" 
+          onClick={goToNextPage} 
+          disabled={(currentPage - 1) * booksPerPage >= totalResults}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
