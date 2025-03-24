@@ -122,6 +122,9 @@ const BookReviews = () => {
 
 	return (
 		<div className="book-details-container">
+      <Link to="/books" className="back-to-list">
+					Back to List
+				</Link>
 			<h1>{title}</h1>
 			<div className="book-details">
 				<div className="book-cover">
@@ -194,11 +197,6 @@ const BookReviews = () => {
 						<p>No reviews yet.</p>
 					)}
 				</div>
-				<div>
-				<Link to="/books" className="back-to-list">
-					Back to List
-				</Link>
-			</div>
 			</div>
 		</div>
 	);
