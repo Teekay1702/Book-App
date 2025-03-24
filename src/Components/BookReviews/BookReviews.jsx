@@ -53,10 +53,11 @@ const BookReviews = () => {
 		if (id) 
 			fetchBookDetails();
 		
-    const savedReviews = localStorage.getItem(`reviews_${id}`);
-    if (savedReviews) {
-      setReviews(JSON.parse(savedReviews));
-    }
+
+		const savedReviews = localStorage.getItem(`reviews_${id}`);
+		if (savedReviews) {
+			setReviews(JSON.parse(savedReviews));
+		}
 
 	}, [id]);
 
@@ -70,8 +71,9 @@ const BookReviews = () => {
 			const updatedReviews = [
 				...reviews,
 				newReview,
-			]; setReviews(updatedReviews);
-      localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
+			];
+			setReviews(updatedReviews);
+			localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
 			setNewReview('');
 		}
 	};
@@ -88,7 +90,7 @@ const BookReviews = () => {
 			setReviews(updatedReviews);
 			setEditingIndex(null);
 			setEditedReview('');
-      localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
+			localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
 		}
 	};
 
@@ -100,7 +102,7 @@ const BookReviews = () => {
 	const handleDeleteClick = (index) => {
 		const updatedReviews = reviews.filter((_, i) => i !== index);
 		setReviews(updatedReviews);
-    localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
+		localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
 	};
 
 	if (loading) {
@@ -174,13 +176,15 @@ const BookReviews = () => {
 			</div>
 			<div className="book-review-section">
 				<h2>User Reviews</h2>
+				<div className="review-form-container">
 				<form onSubmit={handleReviewSubmit}>
 					<textarea value={newReview}
 						onChange={handleReviewChange}
 						placeholder="Write your review here..."/>
-            <button type="submit">Submit Review</button>
+					<button type="submit">Submit Review</button>
 				</form>
-
+				</div>
+				
 				<div className="reviews-list">
 					{
 					reviews.length > 0 ? (reviews.map((review, index) => (
@@ -202,14 +206,14 @@ const BookReviews = () => {
 							) : (
 								<>
 									<p>{review}</p>
-                  <div className="review-actions">
-                  <button onClick={
-										() => handleEditClick(index)
-									}>Edit</button>
-									<button onClick={
-										() => handleDeleteClick(index)
-									}>Delete</button>
-                  </div>
+									<div className="review-actions">
+										<button onClick={
+											() => handleEditClick(index)
+										}>Edit</button>
+										<button onClick={
+											() => handleDeleteClick(index)
+										}>Delete</button>
+									</div>
 								</>
 							)
 						} </div>
