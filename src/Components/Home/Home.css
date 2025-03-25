@@ -49,3 +49,19 @@
     cursor: not-allowed;
   }
   
+  @media (max-width: 768px) {
+    .genre-list {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .genre-button {
+      width: 100%;
+      max-width: 250px;
+    }
+  
+    .pagination {
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+  }  
