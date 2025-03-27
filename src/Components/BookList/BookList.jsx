@@ -21,16 +21,16 @@ const BookList = () => {
       setError("");
       try {
         const response = await fetch(
-           `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchQuery)}&startIndex=${(currentPage - 1) * booksPerPage}&maxResults=${booksPerPage}&key=${API_KEY}`
+          `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchQuery)}&startIndex=${(currentPage - 1) * booksPerPage}&maxResults=${booksPerPage}&key=${API_KEY}`
         );
         const data = await response.json();
         console.log("API Response:", data);
         if (data.items && Array.isArray(data.items)) {
-            setBooks(data.items);
-            setTotalResults(data.totalItems || 0);
-          } else {
-            setError("No books found");
-          }
+          setBooks(data.items);
+          setTotalResults(data.totalItems || 0);
+        } else {
+          setError("No books found");
+        }
       } catch (error) {
         console.error("Error fetching data: ", + error.message);
         setError("An error occurred while fetching books.");
@@ -65,10 +65,10 @@ const BookList = () => {
       setCurrentPage(currentPage + 1);
     }
   };
-  
+
   return (
     <div className="book-list-container">
-        <button className="back-button" onClick={() => navigate("/")}>⬅ Back to Home</button>
+      <button className="back-button" onClick={() => navigate("/")}>⬅ Back to Home</button>
       <h1>📚 Books for "{searchQuery}"</h1>
       {error && <div className='error-message'>{error}</div>}
       <div className="book-list">
@@ -91,6 +91,14 @@ const BookList = () => {
                   <p><strong>Published:</strong> {volumeInfo.publishedDate || "N/A"}</p>
                   <p><strong>Genre:</strong> {volumeInfo.categories?.join(", ") || "Uncategorized"}</p>
                   <Link to={`/books/${id}`} className="view-details-button">View Details</Link>
+                  <Link
+                    to={volumeInfo.previewLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="read-online-button"
+                  >
+                    📖 Read Online
+                  </Link>
                 </div>
               </div>
             );
@@ -98,17 +106,17 @@ const BookList = () => {
         )}
       </div>
       <div className="pagination">
-        <button 
-          className="pagination-button" 
-          onClick={goToPreviousPage} 
+        <button
+          className="pagination-button"
+          onClick={goToPreviousPage}
           disabled={currentPage === 1}
         >
           Previous
         </button>
         <span className="pagination-info">Page {currentPage}</span>
-        <button 
-          className="pagination-button" 
-          onClick={goToNextPage} 
+        <button
+          className="pagination-button"
+          onClick={goToNextPage}
           disabled={(currentPage - 1) * booksPerPage >= totalResults}
         >
           Next
