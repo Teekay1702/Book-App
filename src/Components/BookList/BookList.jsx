@@ -91,14 +91,6 @@ const BookList = () => {
                   <p><strong>Published:</strong> {volumeInfo.publishedDate || "N/A"}</p>
                   <p><strong>Genre:</strong> {volumeInfo.categories?.join(", ") || "Uncategorized"}</p>
                   <Link to={`/books/${id}`} className="view-details-button">View Details</Link>
-                  <Link
-                    to={volumeInfo.previewLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="read-online-button"
-                  >
-                    📖 Read Online
-                  </Link>
                 </div>
               </div>
             );

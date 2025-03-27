@@ -12,7 +12,7 @@ const BookReviews = () => {
 	const [editingIndex, setEditingIndex] = useState(null);
 	const [editedReview, setEditedReview] = useState('');
 	const [error, setError] = useState(null);
-	const API_KEY = "AIzaSyDzadnnEFZqe7mdLZ0rPAUOI9wunqhTLtQ";
+	const API_KEY = import.meta.env.VITE_Google_API_Key;
 
 	const stripHtml = (html) => {
 		const doc = new DOMParser().parseFromString(html, "text/html");
@@ -59,7 +59,7 @@ const BookReviews = () => {
 			setReviews(JSON.parse(savedReviews));
 		}
 
-	}, [id]);
+	}, [API_KEY, id]);
 
 	const handleReviewChange = (e) => {
 		setNewReview(e.target.value);
@@ -172,6 +172,16 @@ const BookReviews = () => {
 						{
 						stripHtml(description) || "No description available."
 					}</p>
+				</div>
+				<div className="read-online">
+				<Link
+                    to={volumeInfo.previewLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="read-online-button"
+                  >
+                    📖 Read Online
+                  </Link>
 				</div>
 			</div>
 			<div className="book-review-section">
