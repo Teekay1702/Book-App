@@ -13,7 +13,7 @@ const BookList = () => {
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get("search") || "fiction";
-  const API_KEY = "AIzaSyDzadnnEFZqe7mdLZ0rPAUOI9wunqhTLtQ";
+  const API_KEY = import.meta.env.VITE_Google_API_Key;
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -41,7 +41,7 @@ const BookList = () => {
 
     fetchBooks();
 
-  }, [searchQuery, currentPage]);
+  }, [searchQuery, currentPage, booksPerPage, API_KEY]);
 
   const totalPages = totalResults ? Math.ceil(totalResults / booksPerPage) : 0;;
 
