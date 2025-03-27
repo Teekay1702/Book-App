@@ -10,6 +10,7 @@ Book Finder is a React-based application that allows users to search for books u
 - 📖 View Book Details – Clicking on a book displays details like title, author(s), description, and published date.
 - 🔙 Navigation & User Interaction – A search bar and intuitive navigation ensure a smooth user experience.
 - ⭐ User reviews - Users can add reviews to the book they are viewing.
+- 📚 Read Books Online – If available, users can read books directly via Google Books.
 
 
 ## Tech Stack
