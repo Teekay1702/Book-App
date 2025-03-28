@@ -26,7 +26,6 @@
     background-color: #2980b9;
   }
   
-  /* Pagination */
   .pagination {
     display: flex;
     justify-content: center;
@@ -64,4 +63,12 @@
       flex-wrap: wrap;
       gap: 5px;
     }
-  }  
+  }
+
+  .quote {
+    font-size: 24px;
+    font-style: italic;
+    margin-top: 20px;
+    color: white;
+    text-align: center;
+  }
